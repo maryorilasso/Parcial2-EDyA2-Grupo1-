@@ -1,49 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Button from './Button';
 
-const Calculator = () => {
+function Calculator() {
 const [display, setDisplay] = useState('0');
 
-const handleInput = (value) => {
-    setDisplay(prevDisplay => prevDisplay === '0' ? value : prevDisplay + value);
-};
+function handleInput(value) {
+    if (display === '0') {
+    setDisplay(value);
+    } else {
+    setDisplay(display + value);
+    }
+}
 
-const clearDisplay = () => {
+function clearDisplay() {
     setDisplay('0');
-};
+}
 
-const calculateResult = () => {
+function calculateResult() {
     try {
     setDisplay(eval(display).toString());
     } catch (error) {
     setDisplay('Error');
     }
-};
+}
+
+useEffect(() => {
+    function handleKeyPress(event) {
+    const key = event.key;
+    if (key >= '0' && key <= '9') {
+        handleInput(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        handleInput(key);
+    } else if (key === '=' || key === 'Enter') {
+        calculateResult();
+    } else if (key === 'Escape') {
+        clearDisplay();
+    }
+    }
+
+    document.addEventListener('keydown', handleKeyPress);
+
+
+}, []); 
 
 return (
     <div className="calculator">
     <div className="brand">CALCULADORA</div>
     <div className="display">{display}</div>
     <div className="buttons">
-        <button onClick={clearDisplay}>C</button>
-        <button onClick={() => handleInput('7')}>7</button>
-        <button onClick={() => handleInput('8')}>8</button>
-        <button onClick={() => handleInput('9')}>9</button>
-        <button onClick={() => handleInput('/')}>÷</button>
-        <button onClick={() => handleInput('4')}>4</button>
-        <button onClick={() => handleInput('5')}>5</button>
-        <button onClick={() => handleInput('6')}>6</button>
-        <button onClick={() => handleInput('*')}>×</button>
-        <button onClick={() => handleInput('1')}>1</button>
-        <button onClick={() => handleInput('2')}>2</button>
-        <button onClick={() => handleInput('3')}>3</button>
-        <button onClick={() => handleInput('-')}>-</button>
-        <button onClick={() => handleInput('0')} className="span-two">0</button>
-        <button onClick={() => handleInput('.')}>.</button>
-        <button onClick={() => handleInput('+')}>+</button>
-        <button className="special" onClick={calculateResult}>=</button>
+        <Button onClick={clearDisplay}>C</Button>
+        <Button onClick={() => handleInput('7')}>7</Button>
+        <Button onClick={() => handleInput('8')}>8</Button>
+        <Button onClick={() => handleInput('9')}>9</Button>
+        <Button onClick={() => handleInput('/')}>/</Button>
+        <Button onClick={() => handleInput('4')}>4</Button>
+        <Button onClick={() => handleInput('5')}>5</Button>
+        <Button onClick={() => handleInput('6')}>6</Button>
+        <Button onClick={() => handleInput('*')}>*</Button>
+        <Button onClick={() => handleInput('1')}>1</Button>
+        <Button onClick={() => handleInput('2')}>2</Button>
+        <Button onClick={() => handleInput('3')}>3</Button>
+        <Button onClick={() => handleInput('-')}>-</Button>
+        <Button onClick={() => handleInput('0')}>0</Button>
+        <Button onClick={() => handleInput('.')}>.</Button>
+        <Button onClick={calculateResult}>=</Button>
+        <Button onClick={() => handleInput('+')}>+</Button>
     </div>
     </div>
 );
-};
+}
 
 export default Calculator;

@@ -9,11 +9,37 @@
 body {
   background-color: #FFF0F5;
   font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.App-header {
+  background-color: var(--calculadora-pink);
+  padding: 20px;
+  color: var(--button-black);
+}
+
+.App-header h1 {
+  margin: 0;
+}
+
+.App-main {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  padding: 20px;
+}
+
+.App-footer {
+  background-color: var(--calculadora-pink);
+  color: var(--button-black);
+  padding: 10px;
 }
 
 .calculator {
@@ -48,7 +74,7 @@ body {
   gap: 8px;
 }
 
-button {
+.calculator-button {
   padding: 15px;
   font-size: 18px;
   background-color: var(--button-black);
@@ -59,11 +85,11 @@ button {
   transition: opacity 0.3s, transform 0.1s;
 }
 
-button:hover {
+.calculator-button:hover {
   opacity: 0.8;
 }
 
-button:active {
+.calculator-button:active {
   transform: scale(0.95);
 }
 
